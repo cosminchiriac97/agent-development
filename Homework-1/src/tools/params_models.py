@@ -1,0 +1,26 @@
+# Pydantic BaseModel for each tool
+from pydantic import BaseModel, Field
+
+
+class CalculatorParams(BaseModel):
+    expression: str = Field(
+        description="The mathematical expression to evaluate (e.g., '2 + 3 * 4')",
+        min_length=1
+    )
+
+
+class WebSearchParams(BaseModel):
+    query: str = Field(
+        description="The search terms to find on the web",
+        min_length=2
+    )
+    max_results: int = Field(
+        default=5,
+        description="The maximum number of results to return",
+        ge=1, le=20
+    )
+
+
+class EmptyParams(BaseModel):
+    """Empty parameters for tools that require no input"""
+    pass
